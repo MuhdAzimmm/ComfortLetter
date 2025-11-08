@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Comfort for You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --main-pink: #ff66a6;
+      --main-pink-dark: #ff3385;
+      --bg-gradient: linear-gradient(-45deg, #ffe6f0, #e0f7fa, #fce4ec, #e1f5fe);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg-gradient);
+      background-size: 400% 400%;
+      animation: bgAnim 12s ease infinite;
+    }
+
+    @keyframes bgAnim {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      padding: 30px 20px;
+      max-width: 90%;
+      width: 500px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      animation: floatCard 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+
+    h1 {
+      font-size: 1.8em;
+      color: #d63384;
+      margin-bottom: 20px;
+    }
+
+    #message {
+    display: none; /* <-- hide initially */
+    font-size: 1.1em;
+    color: #444;
+    min-height: 120px;
+    white-space: pre-wrap;
+    text-align: left;
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    max-height: 200px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    }
+
+    #message::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    }
+
+
+    button {
+      background-color: var(--main-pink);
+      border: none;
+      color: white;
+      padding: 12px 28px;
+      font-size: 1em;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: var(--main-pink-dark);
+    }
+
+    img {
+      border-radius: 20px;
+      margin: 15px 0;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: floatUp 6s infinite ease-in;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { top: 0; left: -10px; }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      button {
+        width: 100%;
+        font-size: 1em;
+      }
+
+      #message {
+        font-size: 1em;
+        max-height: 180px;
+      }
+
+      .container {
+        padding: 25px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hearts">
+  <script>
+    for (let i = 0; i < 20; i++) {
+      let heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${4 + Math.random() * 4}s`;
+      heart.style.animationDelay = `${Math.random() * 5}s`;
+      document.querySelector('.hearts').appendChild(heart);
+    }
+  </script>
+</div>
+
+<div class="container">
+  <h1>Notes for you!!💖</h1>
+  <div id="message"></div>
+  <img id="comfort-img" src="https://www.icegif.com/wp-content/uploads/2023/05/icegif-184.gif" alt="Comforting Image" style="display: none;">
+  <br>
+  <button id="showMessageBtn" onclick="typeMessage()">Tekan Sini</button>
+</div>
+
+<audio id="bg-audio">
+  <source src="bg.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const messageText = 
+`Haii Cantik💌
+
+I’m writing this to comfort you because I know you’re feeling scared and stressed about your SPM, right? It’s completely okay to find things difficult sometimes, it doesn’t mean you’re not capable. What matters most is that you keep trying and never give up, okay? 💪
+
+No matter what happens, I’ll always be proud of you. I’m here, cheering you on every step of the way. If things ever feel too heavy, take a short break and give yourself time to breathe, you deserve it.
+
+You’re almost there! Just a little bit more to go. You’ve got this, caiyokkk pwettyyy!! 🌟💖
+
+From,
+Ajiem💖
+Your Lovely Supporter`;
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function typeMessage() {
+    const messageDiv = document.getElementById("message");
+    const image = document.getElementById("comfort-img");
+    const button = document.getElementById("showMessageBtn");
+    const audio = document.getElementById("bg-audio");
+
+    messageDiv.textContent = '';
+    messageDiv.style.display = "block"; 
+    image.style.display = "none";
+    messageDiv.scrollTop = 0;
+    button.remove();
+
+    audio.play().catch(err => {
+      console.log("Autoplay failed:", err);
+    });
+
+    for (let i = 0; i < messageText.length; i++) {
+      messageDiv.textContent += messageText.charAt(i);
+      messageDiv.scrollTop = messageDiv.scrollHeight;
+      await sleep(30);
+    }
+
+    image.style.display = "inline-block";
+  }
+
+  // 🔇 Stop the music when user leaves, reloads, or closes tab
+  window.addEventListener("beforeunload", () => {
+    const audio = document.getElementById("bg-audio");
+    audio.pause();
+    audio.currentTime = 0;
+  });
+
+  // (optional) Also stop when page is hidden (like switching tabs on mobile)
+  window.addEventListener("pagehide", () => {
+    const audio = document.getElementById("bg-audio");
+    audio.pause();
+    audio.currentTime = 0;
+  });
+</script>
+
+</body>
+</html>
