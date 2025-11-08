@@ -207,7 +207,9 @@ You’re almost there! Just a little bit more to go. You’ve got this, caiyokkk
 
 From,
 Ajiem💖
-Your Lovely Supporter`;
+Your Lovely Supporter`; 
+
+  const audio = document.getElementById("bg-audio");
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -217,10 +219,9 @@ Your Lovely Supporter`;
     const messageDiv = document.getElementById("message");
     const image = document.getElementById("comfort-img");
     const button = document.getElementById("showMessageBtn");
-    const audio = document.getElementById("bg-audio");
 
     messageDiv.textContent = '';
-    messageDiv.style.display = "block"; 
+    messageDiv.style.display = "block";
     image.style.display = "none";
     messageDiv.scrollTop = 0;
     button.remove();
@@ -238,16 +239,22 @@ Your Lovely Supporter`;
     image.style.display = "inline-block";
   }
 
-  // 🔇 Stop the music when user leaves, reloads, or closes tab
+  // --- 🔇 Stop music when user leaves, switches tab, or locks screen ---
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      audio.pause();
+      audio.currentTime = 0; // reset to start
+    }
+  });
+
+  // Stop the music if the tab is closed or refreshed
   window.addEventListener("beforeunload", () => {
-    const audio = document.getElementById("bg-audio");
     audio.pause();
     audio.currentTime = 0;
   });
 
-  // (optional) Also stop when page is hidden (like switching tabs on mobile)
-  window.addEventListener("pagehide", () => {
-    const audio = document.getElementById("bg-audio");
+  // For mobile browsers: stop when page loses focus (e.g., switch app)
+  window.addEventListener("blur", () => {
     audio.pause();
     audio.currentTime = 0;
   });
@@ -255,3 +262,4 @@ Your Lovely Supporter`;
 
 </body>
 </html>
+
